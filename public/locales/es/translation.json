@@ -1,0 +1,17 @@
+{
+    "nav": {
+      "home": "Inicio",
+      "dashboard": "Panel de Control",
+      "settings": "Configuración"
+    },
+    "welcome": {
+      "title": "Bienvenido a Organa",
+      "description": "Tu plataforma de gestión"
+    },
+    "common": {
+      "loading": "Cargando...",
+      "error": "Error",
+      "save": "Guardar",
+      "cancel": "Cancelar"
+    }
+  }

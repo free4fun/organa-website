@@ -1,0 +1,17 @@
+  {
+    "nav": {
+      "home": "Home",
+      "dashboard": "Dashboard",
+      "settings": "Settings"
+    },
+    "welcome": {
+      "title": "Welcome to Organa",
+      "description": "Your management platform"
+    },
+    "common": {
+      "loading": "Loading...",
+      "error": "Error",
+      "save": "Save",
+      "cancel": "Cancel"
+    }
+  }
