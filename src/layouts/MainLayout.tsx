@@ -1,17 +1,46 @@
-import { Outlet } from 'react-router-dom';
-import Navbar from '../components/Navbar.tsx';
-import Sidebar from '../components/Sidebar.tsx';
+import React from 'react';
+import Footer from '../components/footer/Footer';
+import MainCarousel from '../components/carousel/MainCarousel';
+import FeatureSection from '../components/features/FeatureSection';
+import BlogSection from '../components/blog/BlogSection';
+import TestimonialSection from '../components/testimonials/TestimonialSection';
+import ClientsSection from '../components/clients/ClientsSection';
 
-const MainLayout = () => {
+import { slidesData } from '../data/slidesData';
+import { featuresData } from '../data/featuresData';
+import { blogData } from '../data/blogData';
+import { testimonialsData } from '../data/testimonialsData';
+import { clientsData } from '../data/clientsData';
+
+const MainLayout: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Navbar />
-      <div className="flex">
-        <Sidebar />
-        <main className="flex-1 p-6">
-          <Outlet />
-        </main>
-      </div>
+    <div className="wrapper">
+            
+      <main role="main">
+        <MainCarousel slides={slidesData} />
+        <FeatureSection
+          title="Nuestros Servicios"
+          features={featuresData}
+        />
+
+       {/*<BlogSection
+          title="Últimas Noticias"
+          posts={blogData}
+        />*/}
+
+        {/*<TestimonialSection
+          testimonials={testimonialsData}
+        />*/}
+
+        <ClientsSection
+          title="Nuestros Clientes"
+          clients={clientsData}
+        />
+
+
+      </main>
+      <Footer />
+      
     </div>
   );
 };

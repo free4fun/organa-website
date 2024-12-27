@@ -1,19 +1,28 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainLayout from './layouts/MainLayout.tsx';
-import Home from './pages/Home.tsx';
-import Dashboard from './pages/Dashboard.tsx';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import './styles/index.tsx';
+import MainLayout from './layouts/MainLayout';
+import Header from './components/header/Header';
+import About from './layouts/About';
 
-function App() {
+
+const App: React.FC = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />} />
-          <Route path="dashboard" element={<Dashboard />} />
-        </Route>
-      </Routes>
-    </Router>
+    <BrowserRouter>
+          <div>
+          <header>
+          <Header />
+          </header>
+
+        <Routes>
+          <Route index path="/" element={<MainLayout />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+        </div>
+      </BrowserRouter>
+      
   );
-}
+};
 
 export default App;
