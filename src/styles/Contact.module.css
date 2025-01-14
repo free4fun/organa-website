@@ -1,0 +1,269 @@
+.contact {
+  padding: 6rem 0;
+  background: var(--background-secondary);
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: var(--primary-gradient);
+  border-radius: 2px;
+}
+
+.description {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+}
+
+.infoItems {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease;
+  text-decoration: none;
+}
+
+.infoItem:hover {
+  transform: translateX(10px);
+}
+
+.infoIcon {
+  width: 48px;
+  height: 48px;
+  background: var(--primary-gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.infoContent h3 {
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.infoContent p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.form {
+  background: var(--card-bg);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.formGroup textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1rem;
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.submitting {
+  opacity: 0.7;
+}
+
+.submitMessage {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.success {
+  background: var(--success-color);
+  color: white;
+}
+
+.error {
+  background: var(--error-color);
+  color: white;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .content {
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact {
+    padding: 4rem 0;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .form {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .infoItem {
+    padding: 1rem;
+  }
+
+  .infoIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .infoContent h3 {
+    font-size: 1.1rem;
+  }
+
+  .form {
+    padding: 1.5rem;
+  }
+
+  .formGroup input,
+  .formGroup textarea {
+    padding: 0.75rem;
+  }
+
+  .submitButton {
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+}
+
+/* Soporte para modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .infoItem {
+    background: var(--card-bg-dark);
+  }
+
+  .form {
+    background: var(--card-bg-dark);
+  }
+
+  .formGroup input,
+  .formGroup textarea {
+    background: var(--input-bg-dark);
+    border-color: var(--border-color-dark);
+  }
+}
+
+/* Soporte para modo de alto contraste */
+@media (prefers-contrast: high) {
+  .infoItem {
+    border: 1px solid var(--border-color);
+  }
+
+  .form {
+    border: 1px solid var(--border-color);
+  }
+}
+
+/* Soporte para preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .infoItem,
+  .submitButton,
+  .formGroup input,
+  .formGroup textarea {
+    transition: none;
+  }
+}

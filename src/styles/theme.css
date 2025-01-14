@@ -1,0 +1,225 @@
+/* Variables del tema claro */
+:root[data-theme="light"] {
+    --primary-color: #0088cc;
+    --primary-gradient: linear-gradient(45deg, #0088cc, #00ffcc);
+    --secondary-color: #00ffcc;
+    
+    --background-primary: #ffffff;
+    --background-secondary: #f8f9fa;
+    --background-tertiary: #edf2f7;
+    
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-tertiary: #999999;
+    
+    --border-color: #e2e8f0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    
+    --success-color: #2ecc71;
+    --warning-color: #f1c40f;
+    --error-color: #e74c3c;
+    --info-color: #3498db;
+    
+    --navbar-bg: rgba(255, 255, 255, 0.9);
+    --navbar-text: #333333;
+    --navbar-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    --input-bg: #ffffff;
+    --input-border: #e2e8f0;
+    --input-text: #333333;
+    --input-placeholder: #999999;
+    
+    --button-primary-bg: var(--primary-color);
+    --button-primary-text: #ffffff;
+    --button-secondary-bg: #f8f9fa;
+    --button-secondary-text: #333333;
+    
+    --footer-bg: #1a1a1a;
+    --footer-text: #ffffff;
+    
+    --scrollbar-track: #f1f1f1;
+    --scrollbar-thumb: #888888;
+    --scrollbar-thumb-hover: #555555;
+  }
+  
+/* Variables del tema oscuro */
+:root[data-theme="dark"] {
+  --primary-color: #8A7CFF; /* Violeta más brillante */
+  --primary-gradient: linear-gradient(45deg, #8A7CFF, #B87CFF);
+  --secondary-color: #B87CFF; /* Violeta secundario */
+  
+  --background-primary: #1A1B1E; /* Gris muy oscuro */
+  --background-secondary: #212226; /* Gris oscuro, ligeramente más claro */
+  --background-tertiary: #2A2B30; /* Gris oscuro para elementos elevados */
+  
+  --text-primary: #FFFFFF; /* Blanco puro */
+  --text-secondary: #E0E0E0; /* Blanco ligeramente atenuado */
+  --text-tertiary: #A0A0A0; /* Gris claro */
+  
+  --border-color: #2F3136; /* Borde sutil */
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  
+  --success-color: #6FD961;
+  --warning-color: #FFB84D;
+  --error-color: #FF6B6B;
+  --info-color: #8A7CFF;
+  
+  --navbar-bg: rgba(26, 27, 30, 0.95);
+  --navbar-text: #FFFFFF;
+  --navbar-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  
+  --card-bg: #212226;
+  --card-border: #2F3136;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+  
+  --input-bg: #2A2B30;
+  --input-border: #2F3136;
+  --input-text: #FFFFFF;
+  --input-placeholder: #808080;
+  
+  --button-primary-bg: var(--primary-color);
+  --button-primary-text: #FFFFFF;
+  --button-secondary-bg: #2A2B30;
+  --button-secondary-text: #FFFFFF;
+  
+  --footer-bg: #141518;
+  --footer-text: #FFFFFF;
+  
+  --scrollbar-track: #1A1B1E;
+  --scrollbar-thumb: #2F3136;
+  --scrollbar-thumb-hover: #404248;
+}
+
+  /* Estilos globales */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  body {
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+                 Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.5;
+  }
+  
+  /* Estilos de la barra de desplazamiento */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+  
+  /* Estilos de selección de texto */
+  ::selection {
+    background: var(--primary-color);
+    color: #ffffff;
+  }
+  
+  /* Estilos de enlaces */
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: var(--secondary-color);
+  }
+  
+  /* Estilos de botones */
+  button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  /* Estilos de inputs */
+  input,
+  textarea {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--input-text);
+    transition: all 0.3s ease;
+  }
+  
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--input-placeholder);
+  }
+  
+  /* Estilos de tarjetas */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow-color);
+  }
+  
+  /* Utilidades de texto */
+  .text-gradient {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Utilidades de fondo */
+  .bg-gradient {
+    background: var(--primary-gradient);
+  }
+  
+  /* Utilidades de animación */
+  .fade-in {
+    animation: fadeIn 0.3s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Media queries para diseño responsive */
+  @media (max-width: 768px) {
+    :root {
+      --card-shadow: 0 2px 4px var(--shadow-color);
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }

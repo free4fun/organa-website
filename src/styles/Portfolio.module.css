@@ -1,0 +1,256 @@
+.portfolio {
+  padding: 6rem 0;
+  background: var(--background-primary);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  margin-bottom: 3rem;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.filterButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  background: var(--background-secondary);
+  color: var(--text-secondary);
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.filterButton:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.filterButton.active {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 136, 204, 0.2);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.projectCard {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.projectCard:hover {
+  transform: translateY(-5px);
+}
+
+.projectCard .links a {
+  z-index: 2;
+  position: relative;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  padding-top: 60%; /* Aspect ratio 5:3 */
+  overflow: hidden;
+}
+
+.imageContainer img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.projectCard:hover .imageContainer img {
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.projectCard:hover .overlay {
+  opacity: 1;
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+}
+
+.links a {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.links a:hover {
+  transform: translateY(-2px);
+  background: var(--secondary-color);
+}
+
+.content {
+  padding: 1.5rem;
+}
+
+.content h3 {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.content p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech {
+  padding: 0.25rem 0.75rem;
+  background: var(--background-tertiary);
+  color: var(--text-secondary);
+  border-radius: 15px;
+  font-size: 0.85rem;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio {
+    padding: 4rem 0;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .filters {
+    margin-bottom: 2rem;
+  }
+
+  .filterButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    margin: 0 -1rem 2rem;
+    padding: 0 1rem 1rem;
+  }
+
+  .filterButton {
+    white-space: nowrap;
+  }
+
+  .content h3 {
+    font-size: 1.1rem;
+  }
+
+  .content p {
+    font-size: 0.9rem;
+  }
+
+  .tech {
+    font-size: 0.8rem;
+  }
+}
+
+/* Soporte para modo de alto contraste */
+@media (prefers-contrast: high) {
+  .overlay {
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  .tech {
+    border: 1px solid var(--text-secondary);
+  }
+}
+
+/* Soporte para preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .projectCard,
+  .filterButton,
+  .links a,
+  .imageContainer img {
+    transition: none;
+  }
+}

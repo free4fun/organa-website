@@ -1,0 +1,25 @@
+.themeToggle {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  
+  .themeToggle:hover {
+    background: var(--hover-bg);
+  }
+  
+  .themeToggle:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-color);
+  }
+  
+  [data-theme='dark'] .themeToggle {
+    color: var(--text-color-dark);
+  }
