@@ -1,7 +1,13 @@
+export interface NavSubItem {
+  label: string;
+  href: string;
+}
+
 export interface NavItem {
-    label: string;
-    href: string;
-  }
+  label: string;
+  href: string;
+  subItems?: NavSubItem[];
+}
   
   export interface Service {
     icon: string;

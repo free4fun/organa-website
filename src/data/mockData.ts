@@ -1,12 +1,38 @@
 import { NavItem, Service, PortfolioItem, Testimonial } from '../types';
 
 export const navItems: NavItem[] = [
-  { label: 'Inicio', href: '#home' },
-  { label: 'Servicios', href: '#services' },
-  { label: 'Portfolio', href: '#portfolio' },
-  { label: 'Sobre Nosotros', href: '#about' },
-  { label: 'Testimonios', href: '#testimonials' },
-  { label: 'Contacto', href: '#contact' },
+  {
+    label: 'Inicio',
+    href: '/'
+  },
+  {
+    label: 'Servicios',
+    href: '/servicios',
+    subItems: [
+      { label: 'Desarrollo Web', href: '/servicios/desarrollo-web' },
+      { label: 'Diseño UI/UX', href: '/servicios/diseno-uiux' },
+      { label: 'Marketing Digital', href: '/servicios/marketing-digital' },
+      { label: 'SEO', href: '/servicios/seo' },
+      { label: 'Desarrollo Backend', href: '/servicios/backend' },
+      { label: 'Ciberseguridad', href: '/servicios/ciberseguridad' }
+    ]
+  },
+  {
+    label: 'Portfolio',
+    href: '/portfolio'
+  },
+  {
+    label: 'Sobre Nosotros',
+    href: '/sobre-nosotros'
+  },
+  {
+    label: 'Testimonios',
+    href: '/testimonios'
+  },
+  {
+    label: 'Contacto',
+    href: '/contacto'
+  }
 ];
 
 export const services: Service[] = [

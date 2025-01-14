@@ -1,174 +1,324 @@
+/* Primero, asegurémonos que el header siempre sea visible */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 1rem 0;
-  background-color: var(--navbar-bg); /* rgba(26, 27, 30, 0.95) */
-  backdrop-filter: blur(8px);
-  box-shadow: var(--navbar-shadow); /* 0 2px 8px rgba(0, 0, 0, 0.3) */
+  /*height: 60px;  Reducimos altura en mobile */
+  background: var(--navbar-bg);
+  display: flex;
+  align-items: center;
   transition: all 0.3s ease;
+  border-bottom: 1px solid var(--border-color);
 }
-
+/* Contenedor adaptativo */
 .container {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  position: relative;
+  z-index: 2;
 }
 
 .logo a {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary-color); /* #8A7CFF */
+  color: var(--text-primary);
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* Contenedor principal de navegación */
+.nav {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  height: 60px;
 }
 
-.logo img {
-  height: 2.5rem;
-  width: auto;
-}
-
-.nav ul {
+/* Lista principal */
+.nav > ul {
   display: flex;
-  list-style: none;
+  align-items: center;
+  gap: 2rem;
   margin: 0;
   padding: 0;
-  gap: 2rem;
+  list-style: none;
 }
 
-.nav li {
-  margin: 0;
+/* Item principal del menú */
+.navItem {
+  position: relative;
+  height: 100%;
 }
 
-.nav a {
-  color: var(--text-primary); /* #FFFFFF */
+.navItem a {
+  color: var(--text-primary);
   text-decoration: none;
   font-weight: 500;
   font-size: 1rem;
-  transition: all 0.3s ease;
-  padding: 0.5rem 0;
+  padding: 0; /* Eliminamos padding */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.navItem a:hover {
+  color: var(--primary-color);
+}
+
+.arrow {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s ease;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.arrow.active {
+  transform: rotate(180deg);
+}
+
+.navItem:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Botón hamburguesa */
+.menuButton {
+  display: none; /* Oculto en desktop */
   position: relative;
+  z-index: 2;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 8px;
+}
+/* Estilos para el botón hamburguesa */
+.menuToggle {
+  display: none; /* Oculto en desktop */
+  background: transparent;
+  border: none;
+  width: 30px;
+  height: 24px;
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1000;
 }
 
-.nav a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--primary-gradient); /* linear-gradient(45deg, #8A7CFF, #B87CFF) */
-  transition: width 0.3s ease;
-}
-
-.nav a:hover {
-  color: var(--primary-color); /* #8A7CFF */
-}
-
-.nav a:hover::after {
+/* Las líneas del botón hamburguesa */
+.menuToggle span {
+  display: block;
   width: 100%;
+  height: 2px;
+  background-color: var(--text-primary);
+  position: absolute;
+  left: 0;
+  transition: all 0.3s ease;
 }
 
+.menuToggle span:first-child {
+  top: 0;
+}
+
+.menuToggle span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menuToggle span:last-child {
+  bottom: 0;
+}
+
+/* Animación cuando el menú está abierto */
+.menuToggle.open span:first-child {
+  transform: rotate(45deg);
+  top: 11px;
+}
+
+.menuToggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menuToggle.open span:last-child {
+  transform: rotate(-45deg);
+  bottom: 11px;
+}
+
+/* Controles del header */
 .headerControls {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.menuToggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  margin-left: 0.5rem;
+/* Submenu */
+.submenu {
+  position: absolute;
+  top: 100%; /* Se posiciona debajo del elemento padre */
+  left: 0;
+  width: 200px;
+  background: var(--navbar-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
 }
 
-.menuToggle span {
+/* Lista del submenu */
+.submenu ul {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+}
+
+/* Items del submenu */
+.submenu li {
   display: block;
-  width: 25px;
-  height: 2px;
-  background-color: var(--text-primary); /* #FFFFFF */
-  margin: 5px 0;
-  transition: all 0.3s ease;
-  border-radius: 2px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Enlaces del submenu */
+.submenu a {
+  display: block;
+  padding: 8px 16px;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover en los enlaces del submenu */
+.submenu a:hover {
+  background-color: var(--hover-bg);
+}
+
+/* Mostrar submenu al hacer hover */
+.navItem:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 @media (max-width: 768px) {
-  .nav {
-    position: fixed;
-    top: 4rem;
-    left: 0;
-    right: 0;
-    background-color: var(--background-primary); /* #1A1B1E */
-    padding: 1.5rem;
-    box-shadow: var(--card-shadow); /* 0 4px 6px rgba(0, 0, 0, 0.25) */
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-1rem);
-    transition: all 0.3s ease;
+  .header {
+    height: 60px; /* Altura fija en mobile */
   }
 
-  .nav.open {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  .nav ul {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .nav li {
-    width: 100%;
-    text-align: center;
-  }
-
-  .nav a {
-    display: block;
-    padding: 0.75rem;
-    color: var(--text-primary); /* #FFFFFF */
-  }
-
-  .nav a:hover {
-    background-color: var(--background-secondary); /* #212226 */
-  }
-
-  .menuToggle {
-    display: block;
-  }
-
-  .menuToggle.open span:first-child {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-
-  .menuToggle.open span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .menuToggle.open span:last-child {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
-}
-
-@media (max-width: 480px) {
   .container {
     padding: 0 1rem;
   }
 
-  .logo a {
-    font-size: 1.5rem;
+  .menuButton {
+    display: block; /* Mostrar en mobile */
   }
 
-  .logo img {
-    height: 2rem;
+  .nav {
+    position: fixed;
+    top: 60px; /* Ajustar a la altura del header */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--navbar-bg);
+    padding: 1rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    z-index: 999;
+  }
+
+  .nav.open {
+    transform: translateX(0);
+  }
+
+  .nav > ul {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+
+  .navItem {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .navItem > a {
+    padding: 1rem;
+    justify-content: space-between;
+  }
+
+  .submenu {
+    position: static;
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    display: none;
+  }
+
+  .navItem.active .submenu {
+    display: block;
+  }
+
+  .submenu ul {
+    padding: 0;
+  }
+
+  .submenu li {
+    border-top: 1px solid var(--border-color);
+  }
+
+  .submenu a {
+    padding: 0.75rem 2rem;
+  }
+
+  .menuToggle {
+    display: block; /* Mostrar en mobile */
+  }
+
+  .nav {
+    position: fixed;
+    top: 60px; /* Altura del header */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--navbar-bg);
+    padding: 1rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    z-index: 999;
+  }
+
+  .nav.open {
+    transform: translateX(0);
+  }
+
+  /* Asegurarse que el header controls esté bien posicionado */
+  .headerControls {
+    position: relative;
+    z-index: 1001; /* Por encima del nav */
   }
 }
