@@ -5,6 +5,22 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Organa Global</title>
+    <script>
+      (function() {
+        try {
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme && ['dark', 'light'].includes(savedTheme)) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            return;
+          }
+          // Si no hay tema guardado, establecer dark por defecto
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } catch (e) {
+          // Si algo falla, usar dark
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

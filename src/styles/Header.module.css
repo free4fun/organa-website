@@ -1,18 +1,16 @@
-/* Primero, asegurémonos que el header siempre sea visible */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  /*height: 60px;  Reducimos altura en mobile */
   background: var(--navbar-bg);
   display: flex;
   align-items: center;
   transition: all 0.3s ease;
   border-bottom: 1px solid var(--border-color);
 }
-/* Contenedor adaptativo */
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -21,11 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.logo {
-  position: relative;
-  z-index: 2;
+  height: 60px;
 }
 
 .logo a {
@@ -36,15 +30,13 @@
   transition: color 0.3s ease;
 }
 
-/* Contenedor principal de navegación */
 .nav {
   position: relative;
   display: flex;
   align-items: center;
-  height: 60px;
+  height: 100%;
 }
 
-/* Lista principal */
 .nav > ul {
   display: flex;
   align-items: center;
@@ -52,12 +44,14 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  height: 100%;
 }
 
-/* Item principal del menú */
 .navItem {
   position: relative;
   height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .navItem a {
@@ -65,11 +59,37 @@
   text-decoration: none;
   font-weight: 500;
   font-size: 1rem;
-  padding: 0; /* Eliminamos padding */
   display: flex;
   align-items: center;
   gap: 0.5rem;
   transition: color 0.3s ease;
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+
+/* Estilos para el subrayado */
+.navItem a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--primary-color);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.navItem a:hover::after,
+.navItem.currentActive > a::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Estilo activo */
+.navItem.currentActive > a {
+  color: var(--primary-color);
 }
 
 .navItem a:hover {
@@ -77,161 +97,82 @@
 }
 
 .arrow {
-  width: 12px;
-  height: 12px;
   transition: transform 0.3s ease;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
 }
 
 .arrow.active {
   transform: rotate(180deg);
 }
 
-.navItem:hover .submenu {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Botón hamburguesa */
-.menuButton {
-  display: none; /* Oculto en desktop */
-  position: relative;
-  z-index: 2;
-  border: none;
-  background: transparent;
-  color: var(--text-primary);
-  cursor: pointer;
-  padding: 8px;
-}
-/* Estilos para el botón hamburguesa */
-.menuToggle {
-  display: none; /* Oculto en desktop */
-  background: transparent;
-  border: none;
-  width: 30px;
-  height: 24px;
-  position: relative;
-  cursor: pointer;
-  padding: 0;
-  z-index: 1000;
-}
-
-/* Las líneas del botón hamburguesa */
-.menuToggle span {
-  display: block;
+.submenuWrapper {
+  display: none;
   width: 100%;
-  height: 2px;
-  background-color: var(--text-primary);
-  position: absolute;
-  left: 0;
-  transition: all 0.3s ease;
 }
 
-.menuToggle span:first-child {
-  top: 0;
+.submenuWrapper.show {
+  display: block;
 }
 
-.menuToggle span:nth-child(2) {
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.menuToggle span:last-child {
-  bottom: 0;
-}
-
-/* Animación cuando el menú está abierto */
-.menuToggle.open span:first-child {
-  transform: rotate(45deg);
-  top: 11px;
-}
-
-.menuToggle.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.menuToggle.open span:last-child {
-  transform: rotate(-45deg);
-  bottom: 11px;
-}
-
-/* Controles del header */
-.headerControls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* Submenu */
+/* Submenu styles */
 .submenu {
   position: absolute;
-  top: 100%; /* Se posiciona debajo del elemento padre */
+  top: 100%;
   left: 0;
-  width: 200px;
   background: var(--navbar-bg);
-  border: 1px solid var(--border-color);
+  min-width: 200px;
   border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: var(--navbar-shadow);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
-  transition: all 0.2s ease;
-}
-
-/* Lista del submenu */
-.submenu ul {
+  transition: all 0.3s ease;
+  z-index: 1000;
+  padding: 0.5rem 0;
   list-style: none;
   margin: 0;
-  padding: 4px 0;
 }
 
-/* Items del submenu */
 .submenu li {
-  display: block;
   margin: 0;
   padding: 0;
 }
 
-/* Enlaces del submenu */
 .submenu a {
+  padding: 0.75rem 1rem;
   display: block;
-  padding: 8px 16px;
-  color: var(--text-primary);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease;
+  white-space: nowrap;
 }
 
-/* Hover en los enlaces del submenu */
 .submenu a:hover {
-  background-color: var(--hover-bg);
+  background: var(--navbar-hover);
 }
 
-/* Mostrar submenu al hacer hover */
-.navItem:hover .submenu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+.submenu a::after {
+  display: none;
 }
 
+/* Desktop hover behavior */
+@media (min-width: 769px) {
+  .navItem.hasSubmenu:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .navItem.hasSubmenu:hover .arrow {
+    transform: rotate(180deg);
+  }
+
+  .menuToggle {
+    display: none;
+  }
+}
+
+/* Mobile styles */
 @media (max-width: 768px) {
-  .header {
-    height: 60px; /* Altura fija en mobile */
-  }
-
-  .container {
-    padding: 0 1rem;
-  }
-
-  .menuButton {
-    display: block; /* Mostrar en mobile */
-  }
-
   .nav {
     position: fixed;
-    top: 60px; /* Ajustar a la altura del header */
+    top: 60px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -241,7 +182,6 @@
     transition: transform 0.3s ease;
     height: calc(100vh - 60px);
     overflow-y: auto;
-    z-index: 999;
   }
 
   .nav.open {
@@ -251,37 +191,35 @@
   .nav > ul {
     flex-direction: column;
     gap: 0;
-    width: 100%;
+    height: auto;
   }
 
   .navItem {
     width: 100%;
     height: auto;
     border-bottom: 1px solid var(--border-color);
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .navItem > a {
-    padding: 1rem;
+  .hasDropdown {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .submenuWrapper {
+    width: 100%;
   }
 
   .submenu {
     position: static;
-    width: 100%;
     opacity: 1;
     visibility: visible;
     transform: none;
     box-shadow: none;
-    border: none;
+    width: 100%;
     background: transparent;
-    display: none;
-  }
-
-  .navItem.active .submenu {
-    display: block;
-  }
-
-  .submenu ul {
     padding: 0;
   }
 
@@ -293,32 +231,63 @@
     padding: 0.75rem 2rem;
   }
 
+  /* Mantener el subrayado en mobile pero ajustado al nuevo layout */
+  .navItem a::after {
+    bottom: -2px;
+  }
+
   .menuToggle {
-    display: block; /* Mostrar en mobile */
-  }
-
-  .nav {
-    position: fixed;
-    top: 60px; /* Altura del header */
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--navbar-bg);
-    padding: 1rem;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    height: calc(100vh - 60px);
-    overflow-y: auto;
-    z-index: 999;
-  }
-
-  .nav.open {
-    transform: translateX(0);
-  }
-
-  /* Asegurarse que el header controls esté bien posicionado */
-  .headerControls {
+    display: block;
+    background: transparent;
+    border: none;
+    width: 30px;
+    height: 24px;
     position: relative;
-    z-index: 1001; /* Por encima del nav */
+    cursor: pointer;
+    padding: 0;
+    z-index: 1000;
+  }
+
+  .menuToggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-primary);
+    position: absolute;
+    left: 0;
+    transition: all 0.3s ease;
+  }
+
+  .menuToggle span:first-child {
+    top: 0;
+  }
+
+  .menuToggle span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .menuToggle span:last-child {
+    bottom: 0;
+  }
+
+  .menuToggle.open span:first-child {
+    transform: rotate(45deg);
+    top: 11px;
+  }
+
+  .menuToggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menuToggle.open span:last-child {
+    transform: rotate(-45deg);
+    bottom: 11px;
+  }
+
+  .headerControls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 }

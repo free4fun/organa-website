@@ -1,48 +1,97 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { navItems } from '../data/mockData';
 import styles from '../styles/Header.module.css';
 import ThemeToggle from './common/ThemeToggle';
 import type { NavItem } from '../types/index';
 
+const MOBILE_BREAKPOINT = 768;
+const SCROLL_THRESHOLD = 50;
+
+const headerVariants = {
+  top: { 
+    backgroundColor: 'var(--navbar-bg-transparent)', 
+    boxShadow: 'none' 
+  },
+  scrolled: { 
+    backgroundColor: 'var(--navbar-bg)', 
+    boxShadow: 'var(--navbar-shadow)' 
+  },
+};
+
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
   const scrollPosition = useScrollPosition();
 
-  const headerVariants = {
-    top: { 
-      backgroundColor: 'var(--navbar-bg-transparent)', 
-      boxShadow: 'none' 
-    },
-    scrolled: { 
-      backgroundColor: 'var(--navbar-bg)', 
-      boxShadow: 'var(--navbar-shadow)' 
-    },
+  // Detectar sección activa
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('section[id]');
+      const scrollY = window.pageYOffset;
+
+      sections.forEach(current => {
+        const sectionHeight = (current as HTMLElement).offsetHeight;
+        const sectionTop = (current as HTMLElement).offsetTop - 100;
+        const sectionId = current.getAttribute('id');
+
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight && sectionId) {
+          setActiveSection(sectionId);
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleResize = useCallback(() => {
+    const mobile = window.innerWidth < MOBILE_BREAKPOINT;
+    setIsMobile(mobile);
+    if (!mobile) {
+      setIsMenuOpen(false);
+      setActiveSubmenu(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [handleResize]);
+
+  const handleSubmenuClick = (e: React.MouseEvent, item: NavItem) => {
+    if (isMobile && item.subItems && item.subItems.length > 0) {
+      e.preventDefault();
+      e.stopPropagation();
+      setActiveSubmenu(prev => prev === item.label ? null : item.label);
+    }
   };
 
-  const handleClick = (e: React.MouseEvent, item: NavItem) => {
-    if (window.innerWidth < 768 && item.subItems?.length) {
-      e.preventDefault();
-      setActiveSubmenu(activeSubmenu === item.label ? null : item.label);
-    }
+  const isItemActive = (item: NavItem): boolean => {
+    const itemPath = item.href.replace('#', '');
+    return activeSection === itemPath || 
+           (item.subItems?.some(subItem => subItem.href.replace('#', '') === activeSection) ?? false);
   };
 
   const NavLink: React.FC<{ item: NavItem }> = ({ item }) => {
     const hasSubItems = item.subItems && item.subItems.length > 0;
     const isActive = activeSubmenu === item.label;
+    const isCurrentActive = isItemActive(item);
     
     return (
-      <motion.li
-        className={`${styles.navItem} ${hasSubItems ? styles.hasSubmenu : ''} ${isActive ? styles.active : ''}`}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <li className={`${styles.navItem} 
+                     ${hasSubItems ? styles.hasSubmenu : ''} 
+                     ${isActive ? styles.active : ''} 
+                     ${isCurrentActive ? styles.currentActive : ''}`}>
         <a
           href={item.href}
-          onClick={(e) => handleClick(e, item)}
+          onClick={(e) => handleSubmenuClick(e, item)}
+          className={`${hasSubItems ? styles.hasDropdown : ''} 
+                     ${isCurrentActive ? styles.currentActive : ''}`}
         >
           {item.label}
           {hasSubItems && (
@@ -52,31 +101,42 @@ const Header: React.FC = () => {
               width="16"
               height="16"
             >
-              <path fill="none" stroke="currentColor" strokeWidth="2" d="M7 10l5 5 5-5" />
+              <path 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                d="M7 10l5 5 5-5"
+              />
             </svg>
           )}
         </a>
-
-        <AnimatePresence>
-          {hasSubItems && (
-            <motion.ul 
-              className={styles.submenu}
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: isActive ? 'auto' : 0, opacity: isActive ? 1 : 0 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {item.subItems?.map((subItem) => (
-                <li key={subItem.href}>
+        
+        {hasSubItems && item.subItems && (
+          isMobile ? (
+            <div className={`${styles.submenuWrapper} ${isActive ? styles.show : ''}`}>
+              <ul className={styles.submenu}>
+                {item.subItems.map((subItem) => (
+                  <li key={subItem.href} className={activeSection === subItem.href.replace('#', '') ? styles.currentActive : ''}>
+                    <a href={subItem.href}>
+                      {subItem.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <ul className={styles.submenu}>
+              {item.subItems.map((subItem) => (
+                <li key={subItem.href} className={activeSection === subItem.href.replace('#', '') ? styles.currentActive : ''}>
                   <a href={subItem.href}>
                     {subItem.label}
                   </a>
                 </li>
               ))}
-            </motion.ul>
-          )}
-        </AnimatePresence>
-      </motion.li>
+            </ul>
+          )
+        )}
+      </li>
     );
   };
 
@@ -84,19 +144,14 @@ const Header: React.FC = () => {
     <motion.header
       className={styles.header}
       initial="top"
-      animate={scrollPosition > 50 ? 'scrolled' : 'top'}
+      animate={scrollPosition > SCROLL_THRESHOLD ? 'scrolled' : 'top'}
       variants={headerVariants}
       transition={{ duration: 0.3 }}
     >
       <div className={styles.container}>
-        <motion.div
-          className={styles.logo}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
+        <div className={styles.logo}>
           <a href="#home">organa.global</a>
-        </motion.div>
+        </div>
 
         <nav className={`${styles.nav} ${isMenuOpen ? styles.open : ''}`}>
           <ul>
