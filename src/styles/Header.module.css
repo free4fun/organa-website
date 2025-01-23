@@ -7,7 +7,7 @@
   background: var(--navbar-bg);
   display: flex;
   align-items: center;
-  transition: all 0.3s ease;
+  transition: ease-in-out 0.3s ease; /* Removido 'all' para optimizar */
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -35,6 +35,7 @@
   display: flex;
   align-items: center;
   height: 100%;
+  margin-right: auto; /* Empuja los controles hacia la derecha */
 }
 
 .nav > ul {
@@ -151,6 +152,42 @@
   display: none;
 }
 
+.headerControls {
+  display: inline-flex; /* Cambiado a inline-flex */
+  align-items: center;
+  gap: 0.25rem; /* Reducido el gap */
+  margin-left: 1rem;
+  height: 100%;
+}
+
+.headerControls > * {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Asegurarse que los botones estén alineados */
+.headerControls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0.25rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.headerControls button:hover {
+  color: var(--primary);
+}
+
+.menuToggle {
+  margin-left: 0.5rem;
+}
+
+
 /* Desktop hover behavior */
 @media (min-width: 769px) {
   .navItem.hasSubmenu:hover .submenu {
@@ -166,6 +203,8 @@
   .menuToggle {
     display: none;
   }
+
+  
 }
 
 /* Mobile styles */
@@ -286,8 +325,11 @@
   }
 
   .headerControls {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    gap: 0.125rem;
+    margin-left: 0.5rem;
+  }
+  
+  .headerControls button {
+    height: 28px;
   }
 }

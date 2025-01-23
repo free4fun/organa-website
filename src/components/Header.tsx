@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { navItems } from '../data/mockData';
 import styles from '../styles/Header.module.css';
+import LanguageSwitcher from './common/LanguageSwitcher';
 import ThemeToggle from './common/ThemeToggle';
 import type { NavItem } from '../types/index';
 
@@ -162,6 +163,7 @@ const Header: React.FC = () => {
         </nav>
 
         <div className={styles.headerControls}>
+          <LanguageSwitcher />
           <ThemeToggle />
           <button
             className={`${styles.menuToggle} ${isMenuOpen ? styles.open : ''}`}

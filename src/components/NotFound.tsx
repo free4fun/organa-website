@@ -1,33 +1,45 @@
-import { Link } from 'react-router-dom'
-import { FaHome } from 'react-icons/fa'
-import styles from '../styles/NotFound.module.css'
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
+import { Helmet } from 'react-helmet';
+import styles from '../styles/NotFound.module.css';
 
-function NotFound() {
+const NotFound: FC = () => {
+  const { t } = useTranslation(['errors', 'common']);
+
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        {/* Número 404 con efecto de superposición */}
-        <div className={styles.titleWrapper}>
-          <h1 className={styles.backgroundNumber}>404</h1>
-          <h2 className={styles.overlayTitle}>
-            Página no encontrada
-          </h2>
-        </div>
-
-        {/* Mensaje y botón */}
-        <div className={styles.messageContainer}>
-          <p className={styles.message}>
-            Lo sentimos, la página que buscas no existe o ha sido movida.
-          </p>
-
-          <Link to="/" className={styles.homeButton}>
-            <FaHome className={styles.homeIcon} />
-            <span>Volver al inicio</span>
-          </Link>
+    <>
+      <Helmet>
+        <title>{t('errors:404.metaTitle')}</title>
+        <meta name="description" content={t('errors:404.metaDescription')} />
+      </Helmet>
+      
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <div className={styles.titleWrapper}>
+            <div className={styles.backgroundNumber}>
+              {t('errors:404.number')}
+            </div>
+            <h1 className={styles.overlayTitle}>
+              {t('errors:404.title')}
+            </h1>
+          </div>
+          
+          <div className={styles.messageContainer}>
+            <p className={styles.message}>
+              {t('errors:404.message')}
+            </p>
+            
+            <Link to="/" className={styles.homeButton}>
+              <FaHome className={styles.homeIcon} />
+              {t('errors:404.buttonText')}
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    </>
+  );
+};
 
-export default NotFound
+export default NotFound;

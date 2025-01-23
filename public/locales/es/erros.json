@@ -1,0 +1,19 @@
+{
+    "404": {
+      "title": "Página no encontrada",
+      "number": "404",
+      "message": "Lo sentimos, la página que estás buscando no existe o ha sido movida.",
+      "buttonText": "Volver al inicio",
+      "metaTitle": "404 - Página no encontrada | Organa Global",
+      "metaDescription": "La página que buscas no existe. Vuelve al inicio para continuar navegando."
+    },
+    "500": {
+      "title": "Error del servidor",
+      "message": "Ha ocurrido un error en nuestros servidores. Por favor, inténtalo más tarde.",
+      "buttonText": "Reintentar"
+    },
+    "offline": {
+      "title": "Sin conexión",
+      "message": "No hay conexión a internet. Verifica tu conexión e intenta nuevamente."
+    }
+  }

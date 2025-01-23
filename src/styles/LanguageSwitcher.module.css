@@ -1,0 +1,56 @@
+.languageButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: transparent;
+  border: none;
+  color: --text-primary;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  height: 32px;
+  border-radius: 4px;
+  margin-right: 0.5rem; /* Reduce el espacio entre los controles */
+  transition: color 0.7s ease;
+  
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.87;
+}
+
+.text {
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.3px;
+}
+
+.languageButton:hover {
+  opacity: 0.8;
+}
+
+.languageButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .languageButton {
+    padding: 0.25rem;
+    height: 28px;
+    margin-right: -0.25rem;
+  }
+  
+  .text {
+    display: none;
+  }
+  
+  .icon {
+    width: 14px;
+    height: 14px;
+  }
+}
