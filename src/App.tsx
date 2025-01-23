@@ -1,28 +1,18 @@
-import React from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import Portfolio from './components/Portfolio';
-import About from './components/About';
-import Testimonials from './components/Testimonials';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import { Routes, Route, } from 'react-router-dom'
 import './styles/theme.css';
-
+import Layout from './components/Layout';
+import Home from './components/Home';
+import NotFound from './components/NotFound';
 const App: React.FC = () => {
   return (
-    <div className="app">
-      <Header />
-      <main>
-        <Hero />
-        <Services />
-        <Portfolio />
-        <About />
-        <Testimonials />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+
+<Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+
   );
 };
 
